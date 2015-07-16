@@ -32,53 +32,42 @@ angular.module('starter.controllers', [])
     enableFriends: true
   };
   
-  $scope.updateEditor = function() {
+  $scope.gPlace;
+  
+   $scope.updateEditor = function() {
 	var element = document.getElementById("page_content");
 	element.style.height = element.scrollHeight + "px";
-  };
+   };
   
-  $scope.gInit = function () {
-	  alert('1');
-	  google.load("elements", "1", {packages: "transliteration"});
-	  alert('2');
-	  google.setOnLoadCallback(function () {
-			var options = {
-					  sourceLanguage: 'en',
-					  destinationLanguage: ['hi'],
-					  shortcutKey: 'ctrl+g',
-					  transliterationEnabled: true
-					};
-					// Create an instance on TransliterationControl with the required
-					// options.
-					var control = new google.elements.transliteration.TransliterationControl(options);
-					// Enable transliteration in the textfields with the given ids.
-					var ids = ["textarea"];
-					control.makeTransliteratable(ids);
-					// Show the transliteration control which can be used to toggle between
-					// English and Hindi and also choose other destination language.
-					control.showControl('translControl');
-					alert('4');
-			   }
-	  );
-	  alert('3');
-  };
+   angular.element(document).ready(function () {
+ 		$scope.fBind();
+   });
+
   
-//  $scope.gLoad = function () {
-//		var options = {
-//		  sourceLanguage: 'en',
-//		  destinationLanguage: ['hi'],
-//		  shortcutKey: 'ctrl+g',
-//		  transliterationEnabled: true
-//		};
-//		// Create an instance on TransliterationControl with the required
-//		// options.
-//		var control = new google.elements.transliteration.TransliterationControl(options);
-//		// Enable transliteration in the textfields with the given ids.
-//		var ids = ["textarea"];
-//		control.makeTransliteratable(ids);
-//		// Show the transliteration control which can be used to toggle between
-//		// English and Hindi and also choose other destination language.
-//		control.showControl('translControl');
-//   };
-   
+   $scope.onLoad = function(){
+		var options = {
+			sourceLanguage:
+			google.elements.transliteration.LanguageCode.ENGLISH,
+			destinationLanguage:
+			[google.elements.transliteration.LanguageCode.HINDI],
+			shortcutKey: 'ctrl+e',
+			transliterationEnabled: true
+		};
+
+		// Create an instance on TransliterationControl with the required
+		// options.
+		var control =
+		new google.elements.transliteration.TransliterationControl(options);
+
+		// Enable transliteration in the textbox with id
+		// 'transliterateTextarea'.
+		control.makeTransliteratable(['transliterateTextarea']);
+		alert('done inside');
+	};
+	
+	$scope.fBind = function(){
+		google.setOnLoadCallback($scope.onLoad());
+		alert('done outside');
+	};
+
 });

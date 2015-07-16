@@ -26,11 +26,13 @@
     
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 	<script src="http://google-analytics.com/ga.js" async="" type="text/javascript"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
 	
-	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-	<script src="http://google-analytics.com/ga.js" async="" type="text/javascript"></script>
-	
- 
+ 	<script type="text/javascript">
+		google.load("elements", "1", {
+			packages: "transliteration"
+		});
+	</script>
 	
   </head>
   
