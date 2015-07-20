@@ -1,10 +1,28 @@
-<ion-view view-title="TextPad"> 
-	<ion-content  has-bouncing="false">
+ 
+<ion-view view-title="TextPad">
+    <!--  ion-nav-buttons side="left">
+       <a class="button button-icon icon ion-navicon" href="#/app/create"></a>
+    </ion-nav-buttons -->
+    
+    
+	<!--ion-nav-buttons side="left">
+       <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons -->
+    
+    
+	<ion-nav-buttons side="left">
+          <button class="button button-icon button-clear ion-navicon" ng-click="openMenu('{{navCategory}}')"></button>
+    </ion-nav-buttons>
+            
+	<ion-content has-bouncing="false">
 		<ion-list>
 			<div class="list">
 			   <textarea id="transliterateTextarea" name="textarea"  rows="18" ng-init="alert('hello')" placeholder="Write Your Text">
 			   </textarea>
 			</div>
-		</ion-list> 
+			
+		</ion-list>
+		
+		
 	</ion-content> 
 </ion-view>
