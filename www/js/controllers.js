@@ -27,7 +27,26 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('TextPadCtrl', function($scope) {
+
+.controller('TextPadCtrl', function($scope, $ionicSideMenuDelegate, $stateParams, $timeout, Chats, Languages) {
+
+  $scope.navCategory = "LANGUAGES";// {"id":{"NONE"}, "label":{"Select Language"}};
+  //$scope.googleToLangCode = "google.elements.transliteration.LanguageCode.HINDI";
+  
+  //$scope.$watch(Languages.googleToLangCode, 
+	//	  function () { alert('changed:' +Languages.googleToLangCode); }, true);
+   
+	  $scope.$watch(function(){return Languages.getGoogleToLanguageCode()}, function(NewValue, OldValue){
+		    console.log(NewValue + ' ' + OldValue);
+		    console.log(NewValue);
+		    
+		    $scope.fBind(NewValue);
+		    
+		    return;
+		    
+	  }, true);
+ 
+  
   $scope.settings = {
     enableFriends: true
   };
@@ -40,34 +59,48 @@ angular.module('starter.controllers', [])
    };
   
    angular.element(document).ready(function () {
- 		$scope.fBind();
+ 	//	$scope.fBind('ur');
    });
 
   
-   $scope.onLoad = function(){
+//   $scope.onLoad = function(){
+//		var options = {
+//			sourceLanguage:
+//			google.elements.transliteration.LanguageCode.ENGLISH,
+//			destinationLanguage:
+//			[google.elements.transliteration.LanguageCode.HINDI],
+//			shortcutKey: 'ctrl+e',
+//			transliterationEnabled: true
+//		};
+//
+//		 
+//		var control =
+//		new google.elements.transliteration.TransliterationControl(options);
+//
+//		 
+//		control.makeTransliteratable(['transliterateTextarea']);
+//		alert('done');
+//	};
+	
+	$scope.loadLanguage = function(languageCode){
 		var options = {
 			sourceLanguage:
 			google.elements.transliteration.LanguageCode.ENGLISH,
-			destinationLanguage:
-			[google.elements.transliteration.LanguageCode.HINDI],
+			destinationLanguage: [languageCode],
 			shortcutKey: 'ctrl+e',
 			transliterationEnabled: true
 		};
-
-		// Create an instance on TransliterationControl with the required
-		// options.
-		var control =
-		new google.elements.transliteration.TransliterationControl(options);
-
-		// Enable transliteration in the textbox with id
-		// 'transliterateTextarea'.
+		
+		var control = new google.elements.transliteration.TransliterationControl(options);
+		//control.toggleTransliteration();
 		control.makeTransliteratable(['transliterateTextarea']);
-		alert('done inside');
+		//control.toggleTransliteration();
+		//alert('done');
 	};
 	
-	$scope.fBind = function(){
-		google.setOnLoadCallback($scope.onLoad());
-		alert('done outside');
+	$scope.fBind = function(languageCode){
+		//google.setOnLoadCallback($scope.onLoad());
+		google.setOnLoadCallback($scope.loadLanguage(languageCode));
+		//alert('done outside');
 	};
-
 });
