@@ -13,10 +13,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      cordova.plugins.Keyboard.disableScroll(true);
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
-      StatusBar.styleLightContent();
+      StatusBar.styleLightContent();      
+      StatusBar.styleDefault();
     }
   });
 })
@@ -28,14 +30,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-
+    
   // setup an abstract state for the tabs directive
-    .state('tab', {
+  .state('tab', {
     url: "/tab",
     abstract: true,
     templateUrl: "templates/tabs.html"
   })
 
+  
   // Each tab has its own nav history stack:
 
   .state('tab.dash', {
@@ -83,7 +86,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 		  'tab-textpad': {
 			templateUrl: 'templates/textpad.html',
 			controller: 'TextPadCtrl'
-		  }
+		  },
+		  
+		  'menuContent': {
+                  templateUrl: "templates/menu.html"
+          }
+           
 		}
 	});
   
@@ -91,4 +99,27 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
 
+})
+
+.controller('NavCtrl', function($scope, $ionicSideMenuDelegate, $stateParams, $timeout, Chats, Languages) {
+  $scope.languages = Languages.all();
+  $scope.headerText = Languages.getHeaderText();//{"id": {"NONE"}, "label":{"Select Language"}}; //none;
+  
+  $scope.openMenu = function (navCategory) {
+	  $scope.navCategory = navCategory;
+	  $ionicSideMenuDelegate.toggleLeft();//alert(JSON.stringify("RK : " + $scope.chats));
+  };
+  
+  $scope.showMenu = function () {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
+  $scope.showRightMenu = function () {
+    $ionicSideMenuDelegate.toggleRight();
+  };
+  $scope.applyLanguage = function(languageCode){
+	  //alert("applyLanguage="+languageCode); 
+	  Languages.setGoogleToLanguageCode(languageCode);
+	  
+	  //$timeout(function(){ $ionicSideMenuDelegate.toggleLeft()}, 1000);//hide
+  };
 });
