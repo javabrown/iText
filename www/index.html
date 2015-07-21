@@ -72,7 +72,7 @@
        
           <ion-list ng-repeat="language in languages">
             <label class="item item-radio" ng-click="applyLanguage('{{language.code}}')">
-              <input type="radio" name="group" />
+              <input type="radio" name="group" ng-checked="{{language.isDefault}}" />
               <div class="item-content" href="#/" >
                  {{language.name}}
               </div>

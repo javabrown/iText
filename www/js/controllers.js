@@ -30,77 +30,64 @@ angular.module('starter.controllers', [])
 
 .controller('TextPadCtrl', function($scope, $ionicSideMenuDelegate, $stateParams, $timeout, Chats, Languages) {
 
-  $scope.navCategory = "LANGUAGES";// {"id":{"NONE"}, "label":{"Select Language"}};
-  //$scope.googleToLangCode = "google.elements.transliteration.LanguageCode.HINDI";
+   $scope.navCategory = "LANGUAGES";
   
-  //$scope.$watch(Languages.googleToLangCode, 
-	//	  function () { alert('changed:' +Languages.googleToLangCode); }, true);
-   
-	  $scope.$watch(function(){return Languages.getGoogleToLanguageCode()}, function(NewValue, OldValue){
-		    console.log(NewValue + ' ' + OldValue);
-		    console.log(NewValue);
-		    
-		    $scope.fBind(NewValue);
-		    
+   $scope.$watch(function(){return Languages.getGoogleToLanguageCode()}, function(newVal, oldVal){
+		    console.log(newVal + ' ' + oldVal);
+		    console.log(newVal);
+		    $scope.changeFont(newVal);
 		    return;
 		    
 	  }, true);
  
-  
-  $scope.settings = {
-    enableFriends: true
-  };
-  
-  $scope.gPlace;
-  
+   $scope.control = new google.elements.transliteration.TransliterationControl({
+			sourceLanguage:
+			google.elements.transliteration.LanguageCode.ENGLISH,
+			destinationLanguage: [google.elements.transliteration.LanguageCode.HINDI],
+			shortcutKey: 'ctrl+e',
+			transliterationEnabled: true
+   });
+   
    $scope.updateEditor = function() {
-	var element = document.getElementById("page_content");
-	element.style.height = element.scrollHeight + "px";
+	    var element = document.getElementById("page_content");
+	    element.style.height = element.scrollHeight + "px";
    };
   
    angular.element(document).ready(function () {
- 	//	$scope.fBind('ur');
+ 		$scope.fBind();
    });
+	
+	$scope.loadLanguage = function(){
+		$scope.control.makeTransliteratable(['transliterateTextarea']);
+	};
+	
+	$scope.fBind = function(){
+		google.setOnLoadCallback($scope.loadLanguage());
+	};
+	
+	$scope.changeFont = function(langCode){
+		$scope.control.setLanguagePair(google.elements.transliteration.LanguageCode.ENGLISH,
+				langCode);
+		console.log('font changed')
+	}
+})
 
+.controller('NavCtrl', function($scope, $ionicSideMenuDelegate, $stateParams, $timeout, Chats, Languages) {
+  $scope.languages = Languages.all();
+  $scope.headerText = Languages.getHeaderText();
   
-//   $scope.onLoad = function(){
-//		var options = {
-//			sourceLanguage:
-//			google.elements.transliteration.LanguageCode.ENGLISH,
-//			destinationLanguage:
-//			[google.elements.transliteration.LanguageCode.HINDI],
-//			shortcutKey: 'ctrl+e',
-//			transliterationEnabled: true
-//		};
-//
-//		 
-//		var control =
-//		new google.elements.transliteration.TransliterationControl(options);
-//
-//		 
-//		control.makeTransliteratable(['transliterateTextarea']);
-//		alert('done');
-//	};
-	
-	$scope.loadLanguage = function(languageCode){
-		var options = {
-			sourceLanguage:
-			google.elements.transliteration.LanguageCode.ENGLISH,
-			destinationLanguage: [languageCode],
-			shortcutKey: 'ctrl+e',
-			transliterationEnabled: true
-		};
-		
-		var control = new google.elements.transliteration.TransliterationControl(options);
-		//control.toggleTransliteration();
-		control.makeTransliteratable(['transliterateTextarea']);
-		//control.toggleTransliteration();
-		//alert('done');
-	};
-	
-	$scope.fBind = function(languageCode){
-		//google.setOnLoadCallback($scope.onLoad());
-		google.setOnLoadCallback($scope.loadLanguage(languageCode));
-		//alert('done outside');
-	};
+  $scope.openMenu = function (navCategory) {
+	  $scope.navCategory = navCategory;
+	  $ionicSideMenuDelegate.toggleLeft();
+  };
+  
+  $scope.showMenu = function () {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
+  $scope.showRightMenu = function () {
+    $ionicSideMenuDelegate.toggleRight();
+  };
+  $scope.applyLanguage = function(languageCode){
+	  Languages.setGoogleToLanguageCode(languageCode);
+  };
 });

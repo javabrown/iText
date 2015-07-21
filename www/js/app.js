@@ -101,7 +101,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
 })
 
-.controller('NavCtrl', function($scope, $ionicSideMenuDelegate, $stateParams, $timeout, Chats, Languages) {
+/*.controller('NavCtrl', function($scope, $ionicSideMenuDelegate, $stateParams, $timeout, Chats, Languages) {
   $scope.languages = Languages.all();
   $scope.headerText = Languages.getHeaderText();//{"id": {"NONE"}, "label":{"Select Language"}}; //none;
   
@@ -122,4 +122,4 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 	  
 	  //$timeout(function(){ $ionicSideMenuDelegate.toggleLeft()}, 1000);//hide
   };
-});
+})*/;
