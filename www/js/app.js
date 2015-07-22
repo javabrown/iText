@@ -70,12 +70,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
 
-	.state('tab.account', {
-		url: '/account',
+	.state('tab.setting', {
+		url: '/setting',
 		views: {
-		  'tab-account': {
-			templateUrl: 'templates/tab-account.html',
-			controller: 'AccountCtrl'
+		  'tab-setting': {
+			templateUrl: 'templates/tab-setting.html',
+			controller: 'SettingCtrl'
 		  }
 		}
 	})
@@ -93,7 +93,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
           }
            
 		}
-	});
+	})
+	
+	.state('menu.languages', {
+      url: '/languages',
+      views: {
+        'tab-chats': {
+          templateUrl: 'templates/languages.html',
+          controller: 'NavCtrl'
+        }
+      }
+    })
+    
+	;
   
 
   // if none of the above states are matched, use this as the fallback

@@ -21,9 +21,11 @@ angular.module('starter.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope) {
+.controller('SettingCtrl', function($scope) {
   $scope.settings = {
-    enableFriends: true
+    enableFriends: true,
+    sendCrashReport: false,
+    feedback : 0
   };
 })
 
@@ -81,21 +83,28 @@ angular.module('starter.controllers', [])
 })
 
 .controller('NavCtrl', function($scope, $ionicSideMenuDelegate, $stateParams, $timeout, Chats, Languages) {
-  $scope.languages = Languages.all();
-  $scope.headerText = Languages.getHeaderText();
-  
-  $scope.openMenu = function (navCategory) {
-	  $scope.navCategory = navCategory;
-	  $ionicSideMenuDelegate.toggleLeft();
-  };
-  
-  $scope.showMenu = function () {
-    $ionicSideMenuDelegate.toggleLeft();
-  };
-  $scope.showRightMenu = function () {
-    $ionicSideMenuDelegate.toggleRight();
-  };
-  $scope.applyLanguage = function(languageCode){
-	  Languages.setGoogleToLanguageCode(languageCode);
-  };
+	  $scope.languages = Languages.all();
+	  $scope.headerText = Languages.getHeaderText();
+	  
+	  $scope.openLeftMenu = function (navCategory) {
+		  $scope.navCategory = navCategory;
+		  $ionicSideMenuDelegate.toggleLeft();
+	  };
+	  
+	  $scope.openRightMenu = function (navCategory) {
+		  $scope.navCategory = navCategory;
+		  $ionicSideMenuDelegate.toggleRight();
+	  };
+	  
+	  $scope.showMenu = function () {
+	    $ionicSideMenuDelegate.toggleLeft();
+	  };
+	  
+	  $scope.showRightMenu = function () {
+	    $ionicSideMenuDelegate.toggleRight();
+	  };
+	  
+	  $scope.applyLanguage = function(languageCode){
+		  Languages.setGoogleToLanguageCode(languageCode);
+	  };
 });

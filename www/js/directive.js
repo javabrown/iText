@@ -95,6 +95,14 @@ angular.module('starter.directive', [])
 		
 		    return directive;
 		})
+
+	    .directive('itextmenu', function() {
+	    	return {
+			    restrict: 'E',
+			    replace: 'true',
+			    templateUrl: "templates/itext-menu.html"
+	    	};
+		})
 		
 		;
 
