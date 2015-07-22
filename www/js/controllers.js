@@ -31,7 +31,15 @@ angular.module('starter.controllers', [])
 .controller('TextPadCtrl', function($scope, $ionicSideMenuDelegate, $stateParams, $timeout, Chats, Languages) {
 
    $scope.navCategory = "LANGUAGES";
-  
+   $scope.iVal = localStorage.getItem('text');
+   
+   var element = document.getElementById("transliterateTextarea");
+   
+   element.addEventListener ("keyup", function() {
+       localStorage.setItem('text', this.value);
+       console.log("Saved File Content:" + localStorage.getItem('text'));
+   });
+   
    $scope.$watch(function(){return Languages.getGoogleToLanguageCode()}, function(newVal, oldVal){
 		    console.log(newVal + ' ' + oldVal);
 		    console.log(newVal);
