@@ -1,0 +1,21 @@
+<ion-view view-title="Setting">
+  <ion-content>
+      <ion-list>
+    	<ion-toggle  ng-model="settings.enableFriends"> Enable Friends </ion-toggle>
+    	<ion-toggle  ng-model="settings.sendCrashReport"> Send Crash Report </ion-toggle>
+      </ion-list>
+    <div class="item item-divider"> 
+          Settings
+        </div>
+    <ion-list>
+    	 
+    	 
+      <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap" href="#/tab/chats/{{settings.feedback}}">
+          	<img ng-src="http://publicz.raileurope.com/redesign/images/masthead.jpg">
+	         <h2> You ate an apple today</h2>
+        	<i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+      
+    </ion-list>
+  </ion-content>
+</ion-view>
