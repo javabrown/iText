@@ -1,0 +1,20 @@
+<ion-view view-title="{{headerText}}">
+
+  <ion-content has-header="true">
+ 
+          <ion-list ng-repeat="language in languages">
+ 
+            <label class="item item-radio" ng-click="applyLanguage('{{language.code}}')">
+              <input type="radio" name="group" ng-checked="{{language.isDefault}}" />
+              <div class="item-content" href="#/" >
+                 {{language.name}}
+              </div>
+              <i class="radio-icon ion-checkmark"></i>
+            </label>
+          </ion-list>
+       
+    
+   </ion-content>
+  
+
+</ion-view>
